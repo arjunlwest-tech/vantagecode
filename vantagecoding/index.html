@@ -1,0 +1,2473 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vantage Coding – Level Up Your Code</title>
+  <meta name="description" content="Vantage Coding is a gamified coding platform. Complete quests, earn XP, level up, and master every programming language through interactive challenges and projects." />
+  <meta name="keywords" content="coding, programming, learn to code, gamified learning, XP, quests, Vantage Suites" />
+  <meta name="author" content="Vantage Suites" />
+  <meta property="og:title" content="Vantage Coding – Level Up Your Code" />
+  <meta property="og:description" content="Gamified coding quests, tracks, and projects for every language." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7206950229249249" crossorigin="anonymous"></script>
+  <!-- End AdSense -->
+
+  <style>
+    /* ============================================
+       VANTAGE CODING – PREMIUM DESIGN SYSTEM
+       ============================================ */
+
+    :root {
+      --bg-primary: #06080f;
+      --bg-secondary: #0a0e1a;
+      --bg-card: #0d1221;
+      --bg-card-hover: #111832;
+      --bg-elevated: #141b2e;
+      --border-subtle: rgba(99, 115, 168, 0.12);
+      --border-medium: rgba(99, 115, 168, 0.2);
+      --border-accent: rgba(99, 102, 241, 0.5);
+      --accent-primary: #6366f1;
+      --accent-secondary: #818cf8;
+      --accent-glow: rgba(99, 102, 241, 0.3);
+      --accent-gradient: linear-gradient(135deg, #6366f1, #a78bfa, #6366f1);
+      --success: #10b981;
+      --success-glow: rgba(16, 185, 129, 0.3);
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --xp-gradient: linear-gradient(90deg, #6366f1, #a78bfa, #10b981);
+      --text-primary: #e8eaf6;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+      --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.15);
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+      --shadow-elevated: 0 8px 40px rgba(0, 0, 0, 0.5);
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ============================================
+       PARTICLE CANVAS BACKGROUND
+       ============================================ */
+    #particleCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ============================================
+       AMBIENT GRADIENT ORBS
+       ============================================ */
+    .ambient-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+      animation: orbFloat 20s ease-in-out infinite;
+    }
+    .orb-1 { width: 600px; height: 600px; background: #6366f1; top: -200px; left: -100px; animation-delay: 0s; }
+    .orb-2 { width: 500px; height: 500px; background: #a78bfa; bottom: -150px; right: -100px; animation-delay: -7s; }
+    .orb-3 { width: 400px; height: 400px; background: #10b981; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -14s; }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(30px, -40px) scale(1.05); }
+      50% { transform: translate(-20px, 20px) scale(0.95); }
+      75% { transform: translate(15px, 30px) scale(1.02); }
+    }
+
+    /* ============================================
+       SCROLLBAR
+       ============================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-medium); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+    /* ============================================
+       APP WRAPPER
+       ============================================ */
+    .app-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 24px 48px;
+    }
+
+    /* ============================================
+       NAVIGATION / HEADER
+       ============================================ */
+    .main-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 32px;
+      position: sticky;
+      top: 0;
+      background: rgba(6, 8, 15, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 100;
+      padding-left: 24px;
+      padding-right: 24px;
+      margin-left: -24px;
+      margin-right: -24px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo {
+      width: 42px; height: 42px;
+      background: var(--accent-gradient);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 18px;
+      color: white;
+      box-shadow: var(--shadow-glow);
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-logo::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: logoShine 3s ease-in-out infinite;
+    }
+    @keyframes logoShine {
+      0%, 100% { transform: translateX(-100%) rotate(45deg); }
+      50% { transform: translateX(100%) rotate(45deg); }
+    }
+
+    .nav-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #e8eaf6, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link {
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      border: 1px solid transparent;
+      cursor: pointer;
+      background: none;
+    }
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: var(--bg-card);
+      border-color: var(--border-subtle);
+    }
+    .nav-link.active {
+      color: var(--accent-secondary);
+      background: rgba(99, 102, 241, 0.1);
+      border-color: var(--border-accent);
+    }
+
+    /* ============================================
+       HERO / XP SECTION
+       ============================================ */
+    .hero-section {
+      text-align: center;
+      padding: 48px 0 40px;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid var(--border-accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent-secondary);
+      margin-bottom: 20px;
+      animation: fadeInDown 0.6s ease-out;
+    }
+    .hero-badge .pulse-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      animation: fadeInUp 0.6s ease-out 0.1s both;
+    }
+    .hero-title .gradient-text {
+      background: var(--accent-gradient);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease-in-out infinite;
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+      animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+
+    /* XP Status Bar */
+    .xp-status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.6s ease-out 0.3s both;
+    }
+
+    .xp-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .xp-stat-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--xp-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .xp-stat-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .xp-progress-container {
+      flex: 1;
+      min-width: 280px;
+      max-width: 420px;
+    }
+    .xp-progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .xp-progress-track {
+      width: 100%;
+      height: 12px;
+      border-radius: var(--radius-full);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      position: relative;
+    }
+    .xp-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--xp-gradient);
+      background-size: 200% 100%;
+      border-radius: var(--radius-full);
+      transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+    .xp-progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* ============================================
+       SECTION TABS
+       ============================================ */
+    .section-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 32px;
+      overflow-x: auto;
+    }
+    .section-tab {
+      flex: 1;
+      min-width: max-content;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .section-tab:hover {
+      color: var(--text-primary);
+      background: var(--bg-elevated);
+    }
+    .section-tab.active {
+      color: white;
+      background: var(--accent-primary);
+      box-shadow: 0 2px 12px rgba(99, 102, 241, 0.4);
+    }
+    .section-tab .tab-icon { font-size: 1.1rem; }
+
+    /* ============================================
+       CONTENT SECTIONS
+       ============================================ */
+    .content-section {
+      display: none;
+      animation: fadeInContent 0.4s ease-out;
+    }
+    .content-section.active { display: block; }
+
+    @keyframes fadeInContent {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================
+       QUESTS
+       ============================================ */
+    .quests-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .quests-header h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .quests-header .quest-counter {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .quest-categories {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .quest-cat-chip {
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .quest-cat-chip:hover { border-color: var(--border-accent); color: var(--text-primary); }
+    .quest-cat-chip.active {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: var(--accent-primary);
+      color: var(--accent-secondary);
+    }
+
+    .quests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .quest-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      cursor: pointer;
+      transition: all var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+    .quest-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--accent-gradient);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+    .quest-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-glow);
+    }
+    .quest-card:hover::before { opacity: 1; }
+
+    .quest-card.completed {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.06);
+    }
+    .quest-card.completed::before {
+      background: linear-gradient(90deg, #10b981, #34d399);
+      opacity: 1;
+    }
+
+    .quest-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .quest-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid var(--border-accent);
+    }
+    .quest-xp-badge {
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .quest-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .quest-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .quest-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .quest-type-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: var(--bg-elevated);
+    }
+    .quest-check {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+      font-size: 0.8rem;
+    }
+    .quest-card.completed .quest-check {
+      background: var(--success);
+      border-color: var(--success);
+      animation: checkPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes checkPop {
+      0% { transform: scale(0); }
+      60% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    /* XP Popup */
+    .xp-popup {
+      position: fixed;
+      z-index: 9999;
+      pointer-events: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--success);
+      text-shadow: 0 0 20px var(--success-glow);
+      animation: xpFloat 1.2s ease-out forwards;
+    }
+    @keyframes xpFloat {
+      0% { opacity: 1; transform: translateY(0) scale(0.5); }
+      20% { transform: translateY(-10px) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-80px) scale(0.8); }
+    }
+
+    /* ============================================
+       LANGUAGES GRID
+       ============================================ */
+    .lang-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .lang-section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .lang-search {
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      width: 240px;
+      transition: border-color var(--transition-fast);
+      font-family: 'Inter', sans-serif;
+    }
+    .lang-search:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .lang-search::placeholder { color: var(--text-muted); }
+
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .lang-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+    .lang-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, var(--lang-color, var(--accent-primary)), transparent 70%);
+      opacity: 0;
+      transition: opacity var(--transition-smooth);
+    }
+    .lang-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: var(--lang-color, var(--accent-primary));
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .lang-card:hover::after { opacity: 0.08; }
+    .lang-card.active {
+      border-color: var(--lang-color, var(--accent-primary));
+      background: var(--bg-card-hover);
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+    }
+    .lang-card.active::after { opacity: 0.12; }
+
+    .lang-card-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .lang-card-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+    .lang-card-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ============================================
+       TRACKS + PROJECTS LAYOUT
+       ============================================ */
+    .tracks-projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .tp-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+    }
+    .tp-panel-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .tp-panel-icon {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      background: rgba(99, 102, 241, 0.1);
+    }
+    .tp-panel-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .track-item, .project-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all var(--transition-smooth);
+    }
+    .track-item:hover, .project-item:hover {
+      border-color: var(--border-accent);
+      transform: translateX(4px);
+      background: var(--bg-elevated);
+    }
+    .track-item.active, .project-item.active {
+      border-color: var(--accent-primary);
+      background: rgba(99, 102, 241, 0.08);
+      box-shadow: inset 3px 0 0 var(--accent-primary);
+    }
+
+    .track-item-header, .project-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .track-item-title, .project-item-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .difficulty-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+    }
+    .difficulty-badge.beginner { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+    .difficulty-badge.intermediate { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+    .difficulty-badge.advanced { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+    .difficulty-badge.easy { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+    .difficulty-badge.medium { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+    .difficulty-badge.hard { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+    .track-item-desc, .project-item-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .project-details-expanded {
+      margin-top: 12px;
+      padding: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      animation: slideDown 0.3s ease-out;
+    }
+    .project-details-expanded h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .project-task-list {
+      list-style: none;
+    }
+    .project-task-list li {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .project-task-list li:last-child { border-bottom: none; }
+    .project-task-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; max-height: 0; transform: translateY(-8px); }
+      to { opacity: 1; max-height: 500px; transform: translateY(0); }
+    }
+
+    /* ============================================
+       INTERACTIVE COACH
+       ============================================ */
+    .coach-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .coach-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .coach-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent-gradient);
+    }
+
+    .coach-panel-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .coach-panel-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .coach-textarea {
+      width: 100%;
+      min-height: 130px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      resize: vertical;
+      transition: border-color var(--transition-fast);
+      line-height: 1.6;
+    }
+    .coach-textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .coach-textarea::placeholder { color: var(--text-muted); }
+
+    .coach-btn {
+      margin-top: 12px;
+      padding: 12px 28px;
+      border-radius: var(--radius-full);
+      border: none;
+      background: var(--accent-gradient);
+      background-size: 200% 200%;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+    .coach-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px var(--accent-glow);
+      animation: gradientShift 2s ease-in-out infinite;
+    }
+    .coach-btn:active { transform: translateY(0); }
+
+    .coach-output {
+      margin-top: 20px;
+      max-height: 300px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .coach-plan-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      animation: fadeInUp 0.3s ease-out;
+    }
+    .coach-plan-card .plan-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .coach-plan-card .plan-steps {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .coach-plan-card .plan-steps .step {
+      padding: 3px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .step-number {
+      min-width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--accent-secondary);
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Notes */
+    .notes-textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      resize: vertical;
+      transition: border-color var(--transition-fast);
+      line-height: 1.6;
+    }
+    .notes-textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .notes-textarea::placeholder { color: var(--text-muted); }
+
+    /* ============================================
+       ACHIEVEMENTS
+       ============================================ */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .achievement-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      text-align: center;
+      transition: all var(--transition-smooth);
+      position: relative;
+    }
+    .achievement-card.locked { opacity: 0.5; filter: grayscale(0.6); }
+    .achievement-card.unlocked {
+      border-color: rgba(245, 158, 11, 0.3);
+      animation: achievementGlow 2s ease-in-out infinite alternate;
+    }
+    @keyframes achievementGlow {
+      from { box-shadow: 0 0 10px rgba(245, 158, 11, 0.1); }
+      to { box-shadow: 0 0 25px rgba(245, 158, 11, 0.2); }
+    }
+
+    .achievement-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .achievement-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .achievement-desc {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .achievement-status {
+      margin-top: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .achievement-card.unlocked .achievement-status { color: var(--warning); }
+    .achievement-card.locked .achievement-status { color: var(--text-muted); }
+
+    /* ============================================
+       CODE PREVIEW / RENDERING
+       ============================================ */
+    .code-render-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .code-editor-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    .code-editor-header {
+      padding: 12px 18px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .code-editor-dots {
+      display: flex;
+      gap: 6px;
+      margin-right: 10px;
+    }
+    .code-editor-dots span {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .code-editor-dots span:nth-child(1) { background: #ef4444; }
+    .code-editor-dots span:nth-child(2) { background: #f59e0b; }
+    .code-editor-dots span:nth-child(3) { background: #10b981; }
+
+    .code-editor-body {
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.8;
+      min-height: 300px;
+      max-height: 400px;
+      overflow-y: auto;
+      color: var(--text-secondary);
+    }
+    .code-editor-body .line {
+      display: flex;
+    }
+    .code-editor-body .line-num {
+      min-width: 36px;
+      color: var(--text-muted);
+      user-select: none;
+      text-align: right;
+      padding-right: 16px;
+      opacity: 0.5;
+    }
+    .code-editor-body .kw { color: #c084fc; }
+    .code-editor-body .fn { color: #60a5fa; }
+    .code-editor-body .str { color: #34d399; }
+    .code-editor-body .cm { color: #4b5563; font-style: italic; }
+    .code-editor-body .num { color: #fbbf24; }
+    .code-editor-body .op { color: #94a3b8; }
+    .code-editor-body .type { color: #38bdf8; }
+    .code-editor-body .var { color: #e8eaf6; }
+
+    .render-preview-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    .render-preview-header {
+      padding: 12px 18px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .render-preview-body {
+      padding: 24px;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .render-preview-body .render-card {
+      width: 100%;
+      max-width: 320px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      text-align: center;
+      box-shadow: var(--shadow-card);
+      animation: renderFloat 4s ease-in-out infinite;
+    }
+    @keyframes renderFloat {
+      0%, 100% { transform: translateY(0) rotateX(0); }
+      50% { transform: translateY(-8px) rotateX(2deg); }
+    }
+
+    .render-card .render-avatar {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .render-card .render-name {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .render-card .render-bio {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+    .render-card .render-stats {
+      display: flex;
+      justify-content: space-around;
+    }
+    .render-card .render-stat {
+      text-align: center;
+    }
+    .render-card .render-stat-val {
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-secondary);
+    }
+    .render-card .render-stat-label {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ============================================
+       LEADERBOARD
+       ============================================ */
+    .leaderboard-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .leaderboard-panel h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .lb-entry {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      margin-bottom: 8px;
+      transition: all var(--transition-fast);
+    }
+    .lb-entry:hover {
+      background: var(--bg-elevated);
+      transform: translateX(4px);
+    }
+    .lb-entry.you {
+      border: 1px solid var(--border-accent);
+      background: rgba(99, 102, 241, 0.06);
+    }
+
+    .lb-rank {
+      font-weight: 800;
+      font-size: 1.1rem;
+      min-width: 30px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .lb-rank.gold { color: #fbbf24; }
+    .lb-rank.silver { color: #94a3b8; }
+    .lb-rank.bronze { color: #cd7f32; }
+
+    .lb-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+    .lb-info { flex: 1; }
+    .lb-name { font-weight: 600; font-size: 0.9rem; }
+    .lb-level { font-size: 0.75rem; color: var(--text-muted); }
+    .lb-xp {
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .main-footer {
+      text-align: center;
+      padding: 48px 24px;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 64px;
+    }
+    .footer-brand {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #e8eaf6, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-made-by {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .footer-made-by a {
+      color: var(--accent-secondary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer-made-by a:hover { text-decoration: underline; }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 12px;
+    }
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    .footer-links a:hover { color: var(--accent-secondary); }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 16px;
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       LEVEL UP MODAL
+       ============================================ */
+    .level-up-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-smooth);
+    }
+    .level-up-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .level-up-modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: var(--shadow-elevated), 0 0 60px var(--accent-glow);
+      animation: modalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes modalPop {
+      0% { transform: scale(0.5) rotate(-5deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+    .level-up-modal .lu-icon { font-size: 4rem; margin-bottom: 16px; }
+    .level-up-modal .lu-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .level-up-modal .lu-sub {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+    .level-up-modal button {
+      padding: 12px 36px;
+      border-radius: var(--radius-full);
+      border: none;
+      background: var(--accent-gradient);
+      color: white;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-family: 'Inter', sans-serif;
+    }
+    .level-up-modal button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    /* ============================================
+       ANIMATIONS
+       ============================================ */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stagger-in > * {
+      opacity: 0;
+      animation: fadeInUp 0.4s ease-out forwards;
+    }
+    .stagger-in > *:nth-child(1) { animation-delay: 0.05s; }
+    .stagger-in > *:nth-child(2) { animation-delay: 0.1s; }
+    .stagger-in > *:nth-child(3) { animation-delay: 0.15s; }
+    .stagger-in > *:nth-child(4) { animation-delay: 0.2s; }
+    .stagger-in > *:nth-child(5) { animation-delay: 0.25s; }
+    .stagger-in > *:nth-child(6) { animation-delay: 0.3s; }
+    .stagger-in > *:nth-child(7) { animation-delay: 0.35s; }
+    .stagger-in > *:nth-child(8) { animation-delay: 0.4s; }
+    .stagger-in > *:nth-child(9) { animation-delay: 0.45s; }
+    .stagger-in > *:nth-child(10) { animation-delay: 0.5s; }
+    .stagger-in > *:nth-child(n+11) { animation-delay: 0.55s; }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 1024px) {
+      .tracks-projects-grid,
+      .coach-section,
+      .code-render-section { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .app-wrapper { padding: 0 12px 32px; }
+      .main-nav {
+        padding: 12px;
+        margin-left: -12px;
+        margin-right: -12px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .nav-links { flex-wrap: wrap; }
+      .hero-title { font-size: 1.8rem; }
+      .xp-status-bar { gap: 20px; }
+      .quests-grid { grid-template-columns: 1fr; }
+      .lang-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      .section-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .achievements-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+    }
+
+    @media (max-width: 480px) {
+      .lang-grid { grid-template-columns: repeat(2, 1fr); }
+      .lang-search { width: 100%; }
+      .lang-section-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background Canvas -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Ambient Gradient Orbs -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+
+  <!-- Level Up Modal -->
+  <div class="level-up-overlay" id="levelUpOverlay">
+    <div class="level-up-modal">
+      <div class="lu-icon">⚡</div>
+      <div class="lu-title" id="luTitle">Level Up!</div>
+      <div class="lu-sub" id="luSub">You've reached a new level.</div>
+      <button onclick="closeLevelUp()">Continue Grinding</button>
+    </div>
+  </div>
+
+  <div class="app-wrapper">
+    <!-- Navigation -->
+    <nav class="main-nav" id="mainNav">
+      <a href="#" class="nav-brand">
+        <div class="nav-logo">VC</div>
+        <span class="nav-title">Vantage Coding</span>
+      </a>
+      <div class="nav-links">
+        <a href="privacy.html" class="nav-link">Privacy</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="heroSection">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span>Live Coding Platform</span>
+      </div>
+      <h1 class="hero-title">
+        Level Up Your<br />
+        <span class="gradient-text">Coding Skills</span>
+      </h1>
+      <p class="hero-subtitle">
+        Complete quests, earn XP, and master every programming language through interactive challenges — all gamified.
+      </p>
+
+      <div class="xp-status-bar">
+        <div class="xp-stat">
+          <div class="xp-stat-value" id="totalXpDisplay">0</div>
+          <div class="xp-stat-label">Total XP</div>
+        </div>
+        <div class="xp-progress-container">
+          <div class="xp-progress-header">
+            <span id="levelDisplay">Level 1</span>
+            <span id="xpToNext">0 / 500 XP</span>
+          </div>
+          <div class="xp-progress-track">
+            <div class="xp-progress-fill" id="xpProgressFill"></div>
+          </div>
+        </div>
+        <div class="xp-stat">
+          <div class="xp-stat-value" id="questsDoneDisplay">0</div>
+          <div class="xp-stat-label">Quests Done</div>
+        </div>
+        <div class="xp-stat">
+          <div class="xp-stat-value" id="streakDisplay">🔥 0</div>
+          <div class="xp-stat-label">Streak</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Tabs -->
+    <div class="section-tabs" id="sectionTabs">
+      <button class="section-tab active" data-section="quests">
+        <span class="tab-icon">⚔️</span> Quests
+      </button>
+      <button class="section-tab" data-section="languages">
+        <span class="tab-icon">💻</span> Languages
+      </button>
+      <button class="section-tab" data-section="coach">
+        <span class="tab-icon">🧠</span> Coach
+      </button>
+      <button class="section-tab" data-section="rendering">
+        <span class="tab-icon">🎨</span> Rendering
+      </button>
+      <button class="section-tab" data-section="achievements">
+        <span class="tab-icon">🏆</span> Achievements
+      </button>
+      <button class="section-tab" data-section="leaderboard">
+        <span class="tab-icon">📊</span> Leaderboard
+      </button>
+    </div>
+
+    <!-- ====================================
+         QUESTS SECTION
+         ==================================== -->
+    <div class="content-section active" id="section-quests">
+      <div class="quests-header">
+        <h2>⚔️ Daily Questline</h2>
+        <span class="quest-counter" id="questCounter">0 / 0 completed</span>
+      </div>
+      <div class="quest-categories" id="questCategories"></div>
+      <div class="quests-grid stagger-in" id="questsGrid"></div>
+    </div>
+
+    <!-- ====================================
+         LANGUAGES SECTION
+         ==================================== -->
+    <div class="content-section" id="section-languages">
+      <div class="lang-section-header">
+        <h2>💻 Choose a Language</h2>
+        <input type="text" class="lang-search" id="langSearch" placeholder="Search languages..." />
+      </div>
+      <div class="lang-grid stagger-in" id="langGrid"></div>
+
+      <div class="tracks-projects-grid" id="tracksProjectsGrid" style="display:none;">
+        <div class="tp-panel">
+          <div class="tp-panel-header">
+            <div class="tp-panel-icon">📚</div>
+            <div class="tp-panel-title" id="tracksPanelTitle">Tracks</div>
+          </div>
+          <div id="tracksList"></div>
+        </div>
+        <div class="tp-panel">
+          <div class="tp-panel-header">
+            <div class="tp-panel-icon">🚀</div>
+            <div class="tp-panel-title">Projects</div>
+          </div>
+          <div id="projectsList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================
+         COACH SECTION
+         ==================================== -->
+    <div class="content-section" id="section-coach">
+      <div class="coach-section">
+        <div class="coach-panel">
+          <div class="coach-panel-title">🧠 Interactive Coach</div>
+          <div class="coach-panel-desc">Describe what you want to build. Get an instant step-by-step plan with technology recommendations.</div>
+          <textarea class="coach-textarea" id="coachInput" placeholder="Example: Build a real-time chat app with React and WebSockets..."></textarea>
+          <button class="coach-btn" id="coachBtn">⚡ Generate Plan</button>
+          <div class="coach-output" id="coachOutput"></div>
+        </div>
+        <div class="coach-panel">
+          <div class="coach-panel-title">📝 Learning Notes</div>
+          <div class="coach-panel-desc">Write down what you've learned. Reflection is the fastest path to mastery.</div>
+          <textarea class="notes-textarea" id="notesArea" placeholder="Today I learned about closures in JavaScript. A closure is..."></textarea>
+          <button class="coach-btn" id="saveNotesBtn" style="margin-top:12px;">💾 Save Notes</button>
+          <div id="savedNotesCount" style="margin-top: 10px; font-size: 0.8rem; color: var(--text-muted);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================
+         RENDERING SECTION
+         ==================================== -->
+    <div class="content-section" id="section-rendering">
+      <div style="margin-bottom:20px;">
+        <h2 style="font-size:1.5rem;font-weight:800;">🎨 Live Code Preview</h2>
+        <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:4px;">See a sample rendered output for the active language.</p>
+      </div>
+      <div class="code-render-section">
+        <div class="code-editor-panel">
+          <div class="code-editor-header">
+            <div class="code-editor-dots"><span></span><span></span><span></span></div>
+            <span id="codeEditorFileName">main.js</span>
+          </div>
+          <div class="code-editor-body" id="codeEditorBody"></div>
+        </div>
+        <div class="render-preview-panel">
+          <div class="render-preview-header">
+            <span>🖥 Live Preview</span>
+            <span style="font-size:0.7rem;color:var(--text-muted);">Auto-refresh</span>
+          </div>
+          <div class="render-preview-body" id="renderPreviewBody"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================
+         ACHIEVEMENTS SECTION
+         ==================================== -->
+    <div class="content-section" id="section-achievements">
+      <div style="margin-bottom:20px;">
+        <h2 style="font-size:1.5rem;font-weight:800;">🏆 Achievements</h2>
+        <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:4px;">Unlock badges as you progress. Keep grinding!</p>
+      </div>
+      <div class="achievements-grid stagger-in" id="achievementsGrid"></div>
+    </div>
+
+    <!-- ====================================
+         LEADERBOARD SECTION
+         ==================================== -->
+    <div class="content-section" id="section-leaderboard">
+      <div class="leaderboard-panel">
+        <h2>📊 Leaderboard</h2>
+        <div id="leaderboardList"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-brand">Vantage Coding</div>
+      <div class="footer-made-by">
+        Made with ❤️ by <a href="#">Vantage Suites</a>
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-copy">&copy; 2026 Vantage Suites. All rights reserved.</div>
+    </footer>
+  </div>
+
+  <script>
+    /* ============================================
+       PARTICLE SYSTEM
+       ============================================ */
+    (function initParticles() {
+      const canvas = document.getElementById('particleCanvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      const PARTICLE_COUNT = 80;
+      const colors = ['#6366f1', '#a78bfa', '#818cf8', '#10b981', '#38bdf8'];
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() { this.reset(); }
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 2 + 0.5;
+          this.speedX = (Math.random() - 0.5) * 0.5;
+          this.speedY = (Math.random() - 0.5) * 0.5;
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.opacity = Math.random() * 0.5 + 0.1;
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = this.opacity;
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        }
+      }
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+      function connectParticles() {
+        for (let a = 0; a < particles.length; a++) {
+          for (let b = a + 1; b < particles.length; b++) {
+            const dx = particles[a].x - particles[b].x;
+            const dy = particles[a].y - particles[b].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 140) {
+              ctx.beginPath();
+              ctx.strokeStyle = particles[a].color;
+              ctx.globalAlpha = 0.04 * (1 - dist / 140);
+              ctx.lineWidth = 0.5;
+              ctx.moveTo(particles[a].x, particles[a].y);
+              ctx.lineTo(particles[b].x, particles[b].y);
+              ctx.stroke();
+              ctx.globalAlpha = 1;
+            }
+          }
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        connectParticles();
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    /* ============================================
+       DATA: ALL CODING LANGUAGES
+       ============================================ */
+    const LANGUAGES = {
+      JavaScript: { icon: '🟨', color: '#f7df1e', tracks: [
+        { title: 'JS Foundations', difficulty: 'Beginner', description: 'Variables, loops, functions, DOM manipulation, and event handling.' },
+        { title: 'Async & APIs', difficulty: 'Intermediate', description: 'Promises, async/await, fetch API, error handling, and REST.' },
+        { title: 'Advanced Patterns', difficulty: 'Advanced', description: 'Closures, prototypes, proxies, generators, and design patterns.' }
+      ], projects: [
+        { title: 'Todo App', difficulty: 'Easy', description: 'Keyboard-driven task manager with localStorage persistence.', tasks: ['Render list with add/remove', 'Persist to localStorage', 'Add filters & keyboard shortcuts'] },
+        { title: 'Weather Dashboard', difficulty: 'Medium', description: 'Real-time weather data from a public API.', tasks: ['Fetch from OpenWeather API', 'Card layout for cities', 'Handle loading/error states', 'Add search functionality'] },
+        { title: 'Real-Time Chat', difficulty: 'Hard', description: 'WebSocket-based chat application.', tasks: ['Set up WebSocket server', 'Build chat UI', 'Add typing indicators', 'Implement message history'] }
+      ]},
+      Python: { icon: '🐍', color: '#3776ab', tracks: [
+        { title: 'Python Basics', difficulty: 'Beginner', description: 'Syntax, types, loops, functions, and modules.' },
+        { title: 'Data Structures', difficulty: 'Intermediate', description: 'Lists, dicts, sets, comprehensions, and generators.' },
+        { title: 'Advanced Python', difficulty: 'Advanced', description: 'Decorators, context managers, metaclasses, and concurrency.' }
+      ], projects: [
+        { title: 'CLI Study Timer', difficulty: 'Easy', description: 'Pomodoro timer with session logging.', tasks: ['Build countdown timer', 'Log completed sessions', 'Show daily focus stats'] },
+        { title: 'Web Scraper', difficulty: 'Medium', description: 'Scrape and analyze web data.', tasks: ['Use BeautifulSoup/requests', 'Parse HTML content', 'Export data to CSV'] },
+        { title: 'REST API', difficulty: 'Hard', description: 'Build a full REST API with Flask.', tasks: ['Set up Flask routes', 'Add database with SQLAlchemy', 'Implement auth with JWT', 'Write API tests'] }
+      ]},
+      TypeScript: { icon: '🔷', color: '#3178c6', tracks: [
+        { title: 'TS Fundamentals', difficulty: 'Beginner', description: 'Types, interfaces, enums, and generics.' },
+        { title: 'Advanced Types', difficulty: 'Intermediate', description: 'Mapped types, conditional types, template literals.' },
+        { title: 'TS at Scale', difficulty: 'Advanced', description: 'Monorepos, declaration files, and advanced config.' }
+      ], projects: [
+        { title: 'Utility Library', difficulty: 'Medium', description: 'Type-safe helper library.', tasks: ['Define interfaces/types', 'Write 5+ utility functions', 'Add comprehensive tests'] },
+        { title: 'Full-Stack App', difficulty: 'Hard', description: 'End-to-end typed application.', tasks: ['Set up tRPC', 'Build typed frontend', 'Shared schema validation'] }
+      ]},
+      Rust: { icon: '🦀', color: '#dea584', tracks: [
+        { title: 'Rust Basics', difficulty: 'Beginner', description: 'Ownership, borrowing, lifetimes, and basic syntax.' },
+        { title: 'Systems Programming', difficulty: 'Intermediate', description: 'Traits, error handling, concurrency, and FFI.' },
+        { title: 'Advanced Rust', difficulty: 'Advanced', description: 'Unsafe code, macros, async runtime, and WASM.' }
+      ], projects: [
+        { title: 'CLI Tool', difficulty: 'Easy', description: 'Build a fast command-line utility.', tasks: ['Parse CLI args with clap', 'File I/O operations', 'Error handling'] },
+        { title: 'Web Server', difficulty: 'Hard', description: 'HTTP server with Actix-web.', tasks: ['Set up Actix-web', 'Define routes and handlers', 'Add middleware', 'Database integration'] }
+      ]},
+      Go: { icon: '🐹', color: '#00add8', tracks: [
+        { title: 'Go Basics', difficulty: 'Beginner', description: 'Syntax, goroutines, channels, and packages.' },
+        { title: 'Web Development', difficulty: 'Intermediate', description: 'HTTP handlers, middleware, templates, and testing.' }
+      ], projects: [
+        { title: 'URL Shortener', difficulty: 'Medium', description: 'Build a URL shortening service.', tasks: ['Generate short codes', 'Redis/DB storage', 'Redirect handler', 'Rate limiting'] }
+      ]},
+      Java: { icon: '☕', color: '#ed8b00', tracks: [
+        { title: 'Java Basics', difficulty: 'Beginner', description: 'OOP, collections, exceptions, and I/O.' },
+        { title: 'Spring Boot', difficulty: 'Intermediate', description: 'REST APIs, dependency injection, and JPA.' },
+        { title: 'Enterprise Java', difficulty: 'Advanced', description: 'Microservices, messaging, and cloud deployment.' }
+      ], projects: [
+        { title: 'Banking System', difficulty: 'Medium', description: 'Simple banking with transactions.', tasks: ['Account management', 'Transaction processing', 'Balance reporting'] },
+        { title: 'E-Commerce API', difficulty: 'Hard', description: 'Full e-commerce backend with Spring.', tasks: ['Product catalog', 'Cart & checkout', 'Payment integration', 'Order management'] }
+      ]},
+      'C++': { icon: '⚙️', color: '#00599c', tracks: [
+        { title: 'C++ Basics', difficulty: 'Beginner', description: 'Syntax, pointers, references, and memory management.' },
+        { title: 'STL & Templates', difficulty: 'Intermediate', description: 'Standard library, iterators, and template metaprogramming.' },
+        { title: 'Modern C++', difficulty: 'Advanced', description: 'C++17/20 features, move semantics, and smart pointers.' }
+      ], projects: [
+        { title: 'Game Engine', difficulty: 'Hard', description: 'Basic 2D game engine.', tasks: ['Window management', 'Render loop', 'Entity component system', 'Physics engine'] }
+      ]},
+      'C#': { icon: '🟣', color: '#9b4dca', tracks: [
+        { title: 'C# Basics', difficulty: 'Beginner', description: 'Syntax, LINQ, async/await, and .NET fundamentals.' },
+        { title: 'ASP.NET Core', difficulty: 'Intermediate', description: 'Web APIs, MVC, and Entity Framework.' }
+      ], projects: [
+        { title: 'Task Manager API', difficulty: 'Medium', description: 'REST API with ASP.NET Core.', tasks: ['Set up controllers', 'Add EF Core', 'Implement auth', 'Write integration tests'] }
+      ]},
+      Swift: { icon: '🍎', color: '#fa7343', tracks: [
+        { title: 'Swift Basics', difficulty: 'Beginner', description: 'Syntax, optionals, protocols, and closures.' },
+        { title: 'iOS Development', difficulty: 'Intermediate', description: 'SwiftUI, UIKit, and app lifecycle.' }
+      ], projects: [
+        { title: 'Habit Tracker', difficulty: 'Medium', description: 'iOS habit tracking app.', tasks: ['SwiftUI layouts', 'Core Data persistence', 'Notifications', 'Charts & analytics'] }
+      ]},
+      Kotlin: { icon: '🟪', color: '#7f52ff', tracks: [
+        { title: 'Kotlin Basics', difficulty: 'Beginner', description: 'Null safety, coroutines, and extensions.' },
+        { title: 'Android Dev', difficulty: 'Intermediate', description: 'Jetpack Compose, navigation, and Room.' }
+      ], projects: [
+        { title: 'Notes App', difficulty: 'Easy', description: 'Android note-taking app.', tasks: ['Compose UI', 'Room database', 'Search functionality'] }
+      ]},
+      Ruby: { icon: '💎', color: '#cc342d', tracks: [
+        { title: 'Ruby Basics', difficulty: 'Beginner', description: 'Syntax, blocks, modules, and gems.' },
+        { title: 'Rails', difficulty: 'Intermediate', description: 'MVC, ActiveRecord, and RESTful design.' }
+      ], projects: [
+        { title: 'Blog Platform', difficulty: 'Medium', description: 'Blog with Rails.', tasks: ['Scaffold posts', 'User auth with Devise', 'Comments system', 'Markdown support'] }
+      ]},
+      PHP: { icon: '🐘', color: '#777bb4', tracks: [
+        { title: 'PHP Basics', difficulty: 'Beginner', description: 'Syntax, arrays, forms, and sessions.' },
+        { title: 'Laravel', difficulty: 'Intermediate', description: 'Routing, Eloquent, Blade, and middleware.' }
+      ], projects: [
+        { title: 'CMS', difficulty: 'Medium', description: 'Content management system.', tasks: ['Admin dashboard', 'CRUD operations', 'File uploads', 'User roles'] }
+      ]},
+      SQL: { icon: '🗄️', color: '#336791', tracks: [
+        { title: 'SQL Basics', difficulty: 'Beginner', description: 'SELECT, INSERT, UPDATE, JOINs, and aggregations.' },
+        { title: 'Advanced SQL', difficulty: 'Intermediate', description: 'Window functions, CTEs, indexing, and optimization.' }
+      ], projects: [
+        { title: 'Analytics Dashboard', difficulty: 'Medium', description: 'Query-driven analytics.', tasks: ['Design schema', 'Write complex queries', 'Create views', 'Performance tuning'] }
+      ]},
+      Dart: { icon: '🎯', color: '#0175c2', tracks: [
+        { title: 'Dart Basics', difficulty: 'Beginner', description: 'Syntax, async, streams, and null safety.' },
+        { title: 'Flutter', difficulty: 'Intermediate', description: 'Widgets, state management, and navigation.' }
+      ], projects: [
+        { title: 'Expense Tracker', difficulty: 'Easy', description: 'Flutter expense tracking app.', tasks: ['Build UI with Flutter', 'Local storage', 'Charts & graphs'] }
+      ]},
+      Lua: { icon: '🌙', color: '#000080', tracks: [
+        { title: 'Lua Basics', difficulty: 'Beginner', description: 'Tables, metatables, coroutines, and scripting.' }
+      ], projects: [
+        { title: 'Game Script', difficulty: 'Easy', description: 'Script a simple game in Love2D.', tasks: ['Game loop setup', 'Player movement', 'Collision detection'] }
+      ]},
+      R: { icon: '📊', color: '#276dc3', tracks: [
+        { title: 'R Basics', difficulty: 'Beginner', description: 'Vectors, data frames, ggplot2, and dplyr.' }
+      ], projects: [
+        { title: 'Data Viz Report', difficulty: 'Medium', description: 'Create an R Markdown report.', tasks: ['Load and clean data', 'Create visualizations', 'Generate PDF report'] }
+      ]},
+      Scala: { icon: '🔴', color: '#dc322f', tracks: [
+        { title: 'Scala Basics', difficulty: 'Beginner', description: 'Functional programming, case classes, and pattern matching.' }
+      ], projects: [
+        { title: 'Data Pipeline', difficulty: 'Hard', description: 'Build a Spark data pipeline.', tasks: ['Set up Spark', 'Transform datasets', 'Write to storage'] }
+      ]},
+      Haskell: { icon: '🟤', color: '#5e5086', tracks: [
+        { title: 'Haskell Basics', difficulty: 'Beginner', description: 'Pure functions, types, monads, and typeclasses.' }
+      ], projects: [
+        { title: 'Parser', difficulty: 'Medium', description: 'Build a parser combinator.', tasks: ['Define data types', 'Implement parser combinators', 'Parse simple language'] }
+      ]},
+      Elixir: { icon: '💧', color: '#6e4a7e', tracks: [
+        { title: 'Elixir Basics', difficulty: 'Beginner', description: 'Pattern matching, pipes, processes, and OTP.' }
+      ], projects: [
+        { title: 'Chat Server', difficulty: 'Medium', description: 'Real-time chat with Phoenix.', tasks: ['Set up Phoenix', 'LiveView channels', 'Presence tracking'] }
+      ]},
+      Clojure: { icon: '🟢', color: '#5881d8', tracks: [
+        { title: 'Clojure Basics', difficulty: 'Beginner', description: 'S-expressions, immutability, and REPL-driven development.' }
+      ], projects: [
+        { title: 'Web App', difficulty: 'Medium', description: 'Build a ClojureScript web app.', tasks: ['Set up Reagent', 'Build components', 'State management'] }
+      ]},
+      Zig: { icon: '⚡', color: '#f7a41d', tracks: [
+        { title: 'Zig Basics', difficulty: 'Beginner', description: 'Comptime, error unions, and manual memory management.' }
+      ], projects: [
+        { title: 'Allocator', difficulty: 'Hard', description: 'Custom memory allocator.', tasks: ['Implement allocator interface', 'Test with data structures', 'Benchmark performance'] }
+      ]},
+      'C': { icon: '🔧', color: '#a8b9cc', tracks: [
+        { title: 'C Basics', difficulty: 'Beginner', description: 'Pointers, structs, memory allocation, and I/O.' },
+        { title: 'Systems C', difficulty: 'Advanced', description: 'OS interfaces, networking, and embedded systems.' }
+      ], projects: [
+        { title: 'Shell', difficulty: 'Hard', description: 'Build a Unix shell.', tasks: ['Parse commands', 'Fork & exec', 'Pipes and redirection', 'Job control'] }
+      ]},
+      Perl: { icon: '🐫', color: '#39457e', tracks: [
+        { title: 'Perl Basics', difficulty: 'Beginner', description: 'Regex, text processing, and CPAN modules.' }
+      ], projects: [
+        { title: 'Log Analyzer', difficulty: 'Easy', description: 'Parse and analyze log files.', tasks: ['Read log files', 'Regex parsing', 'Generate reports'] }
+      ]},
+      MATLAB: { icon: '📐', color: '#e16737', tracks: [
+        { title: 'MATLAB Basics', difficulty: 'Beginner', description: 'Matrices, plotting, and numerical methods.' }
+      ], projects: [
+        { title: 'Signal Processor', difficulty: 'Medium', description: 'Process and analyze signals.', tasks: ['FFT analysis', 'Filter design', 'Visualization'] }
+      ]},
+      Assembly: { icon: '🔩', color: '#6e4c13', tracks: [
+        { title: 'x86 Assembly', difficulty: 'Beginner', description: 'Registers, instructions, memory, and calling conventions.' }
+      ], projects: [
+        { title: 'Bootloader', difficulty: 'Hard', description: 'Write a minimal bootloader.', tasks: ['BIOS interrupts', 'Disk reading', 'Jump to kernel'] }
+      ]},
+      COBOL: { icon: '🏛️', color: '#005ca5', tracks: [
+        { title: 'COBOL Basics', difficulty: 'Beginner', description: 'Divisions, data types, and file handling.' }
+      ], projects: [
+        { title: 'Payroll System', difficulty: 'Medium', description: 'Process employee payroll.', tasks: ['Read employee files', 'Calculate wages', 'Generate reports'] }
+      ]},
+      Solidity: { icon: '⟠', color: '#363636', tracks: [
+        { title: 'Solidity Basics', difficulty: 'Beginner', description: 'Smart contracts, storage, and Ethereum.' }
+      ], projects: [
+        { title: 'Token Contract', difficulty: 'Medium', description: 'ERC-20 token.', tasks: ['Implement ERC-20', 'Add minting', 'Write tests with Hardhat'] }
+      ]},
+      Julia: { icon: '🟣', color: '#9558b2', tracks: [
+        { title: 'Julia Basics', difficulty: 'Beginner', description: 'Multiple dispatch, arrays, and scientific computing.' }
+      ], projects: [
+        { title: 'Numerical Sim', difficulty: 'Medium', description: 'Physics simulation.', tasks: ['Define equations', 'Numerical integration', 'Plotting results'] }
+      ]},
+      Bash: { icon: '🖥️', color: '#4eaa25', tracks: [
+        { title: 'Bash Scripting', difficulty: 'Beginner', description: 'Variables, loops, pipes, and cron jobs.' }
+      ], projects: [
+        { title: 'Deploy Script', difficulty: 'Easy', description: 'Automated deployment.', tasks: ['SSH automation', 'Git pull & build', 'Service restart'] }
+      ]},
+      PowerShell: { icon: '💠', color: '#012456', tracks: [
+        { title: 'PS Basics', difficulty: 'Beginner', description: 'Cmdlets, pipelines, and automation.' }
+      ], projects: [
+        { title: 'System Monitor', difficulty: 'Easy', description: 'Monitor system resources.', tasks: ['Get CPU/memory info', 'Alert thresholds', 'HTML report'] }
+      ]},
+      HTML: { icon: '🌐', color: '#e34f26', tracks: [
+        { title: 'HTML5', difficulty: 'Beginner', description: 'Semantic elements, forms, and accessibility.' }
+      ], projects: [
+        { title: 'Portfolio Site', difficulty: 'Easy', description: 'Personal portfolio page.', tasks: ['Hero section', 'Project gallery', 'Contact form'] }
+      ]},
+      CSS: { icon: '🎨', color: '#1572b6', tracks: [
+        { title: 'Modern CSS', difficulty: 'Beginner', description: 'Flexbox, Grid, animations, and custom properties.' }
+      ], projects: [
+        { title: 'Design System', difficulty: 'Medium', description: 'Component library.', tasks: ['Color tokens', 'Typography scale', 'Component gallery'] }
+      ]}
+    };
+
+    /* ============================================
+       QUESTS DATA
+       ============================================ */
+    const QUESTS = [
+      { id: 1, title: 'Daily Streak Saver', desc: 'Complete any coding task today to keep your streak alive.', type: 'daily', xp: 50, icon: '🔥' },
+      { id: 2, title: 'Bug Hunter', desc: 'Find and fix three bugs in any project.', type: 'challenge', xp: 120, icon: '🐛' },
+      { id: 3, title: 'Deep Focus', desc: 'Code for 25 uninterrupted minutes (Pomodoro).', type: 'focus', xp: 80, icon: '🧘' },
+      { id: 4, title: 'Mentor Mode', desc: 'Explain a concept out loud as if teaching someone.', type: 'social', xp: 60, icon: '👨‍🏫' },
+      { id: 5, title: 'Code Review', desc: 'Review and comment on someone else\'s code.', type: 'social', xp: 90, icon: '🔍' },
+      { id: 6, title: 'Algorithm Sprint', desc: 'Solve 2 algorithm challenges on any platform.', type: 'challenge', xp: 150, icon: '⚡' },
+      { id: 7, title: 'Documentation Hero', desc: 'Write docs or comments for a function.', type: 'daily', xp: 40, icon: '📝' },
+      { id: 8, title: 'New Language Explorer', desc: 'Write "Hello World" in a language you\'ve never used.', type: 'exploration', xp: 100, icon: '🌍' },
+      { id: 9, title: 'Refactor Champion', desc: 'Refactor a piece of code to be cleaner.', type: 'challenge', xp: 110, icon: '♻️' },
+      { id: 10, title: 'Open Source Contribution', desc: 'Submit a PR or issue to an open source project.', type: 'social', xp: 200, icon: '🌟' },
+      { id: 11, title: 'Test Writer', desc: 'Write unit tests for an existing function.', type: 'challenge', xp: 130, icon: '🧪' },
+      { id: 12, title: 'Speed Coder', desc: 'Complete a small feature in under 15 minutes.', type: 'focus', xp: 70, icon: '⏱️' }
+    ];
+
+    const ACHIEVEMENTS = [
+      { id: 'first_quest', name: 'First Steps', desc: 'Complete your first quest.', icon: '👣', condition: s => s.questsDone >= 1 },
+      { id: 'five_quests', name: 'Quest Warrior', desc: 'Complete 5 quests.', icon: '⚔️', condition: s => s.questsDone >= 5 },
+      { id: 'all_quests', name: 'Quest Master', desc: 'Complete all quests in a session.', icon: '👑', condition: s => s.questsDone >= QUESTS.length },
+      { id: 'level_2', name: 'Level 2', desc: 'Reach level 2.', icon: '📈', condition: s => s.level >= 2 },
+      { id: 'level_5', name: 'Veteran', desc: 'Reach level 5.', icon: '🎖️', condition: s => s.level >= 5 },
+      { id: 'xp_500', name: 'XP Hoarder', desc: 'Earn 500 XP.', icon: '💰', condition: s => s.totalXP >= 500 },
+      { id: 'xp_1000', name: 'XP Legend', desc: 'Earn 1000 XP.', icon: '💎', condition: s => s.totalXP >= 1000 },
+      { id: 'explorer', name: 'Language Explorer', desc: 'View 5 different languages.', icon: '🗺️', condition: s => s.langsViewed >= 5 },
+      { id: 'polyglot', name: 'Polyglot', desc: 'View 10 different languages.', icon: '🌐', condition: s => s.langsViewed >= 10 },
+      { id: 'coach_user', name: 'Coach\'s Pet', desc: 'Generate a coach plan.', icon: '🧠', condition: s => s.plansGenerated >= 1 },
+      { id: 'note_taker', name: 'Scholar', desc: 'Save a learning note.', icon: '📚', condition: s => s.notesSaved >= 1 },
+      { id: 'streak_3', name: 'On Fire', desc: 'Reach a 3-day streak.', icon: '🔥', condition: s => s.streak >= 3 }
+    ];
+
+    const LEADERBOARD = [
+      { name: 'CodeNinja', level: 42, xp: 21000, avatar: '🥷' },
+      { name: 'ByteQueen', level: 38, xp: 19000, avatar: '👸' },
+      { name: 'RustLord', level: 35, xp: 17500, avatar: '🦀' },
+      { name: 'PyMaster', level: 31, xp: 15500, avatar: '🐍' },
+      { name: 'DevSamurai', level: 28, xp: 14000, avatar: '⚔️' },
+    ];
+
+    /* ============================================
+       STATE
+       ============================================ */
+    let state = {
+      totalXP: 0,
+      completedQuests: new Set(),
+      activeLanguage: 'JavaScript',
+      activeTrack: null,
+      activeProject: null,
+      questFilter: 'all',
+      plansGenerated: 0,
+      notesSaved: 0,
+      langsViewed: new Set(['JavaScript']),
+      streak: 1,
+      savedNotes: []
+    };
+
+    // Load from localStorage
+    try {
+      const saved = JSON.parse(localStorage.getItem('vantageCodingState'));
+      if (saved) {
+        state.totalXP = saved.totalXP || 0;
+        state.completedQuests = new Set(saved.completedQuests || []);
+        state.activeLanguage = saved.activeLanguage || 'JavaScript';
+        state.plansGenerated = saved.plansGenerated || 0;
+        state.notesSaved = saved.notesSaved || 0;
+        state.langsViewed = new Set(saved.langsViewed || ['JavaScript']);
+        state.streak = saved.streak || 1;
+        state.savedNotes = saved.savedNotes || [];
+      }
+    } catch(e) {}
+
+    function saveState() {
+      try {
+        localStorage.setItem('vantageCodingState', JSON.stringify({
+          totalXP: state.totalXP,
+          completedQuests: [...state.completedQuests],
+          activeLanguage: state.activeLanguage,
+          plansGenerated: state.plansGenerated,
+          notesSaved: state.notesSaved,
+          langsViewed: [...state.langsViewed],
+          streak: state.streak,
+          savedNotes: state.savedNotes
+        }));
+      } catch(e) {}
+    }
+
+    /* ============================================
+       COMPUTED VALUES
+       ============================================ */
+    function getLevel() { return 1 + Math.floor(state.totalXP / 500); }
+    function getXPInLevel() { return state.totalXP % 500; }
+
+    function getStats() {
+      return {
+        totalXP: state.totalXP,
+        questsDone: state.completedQuests.size,
+        level: getLevel(),
+        plansGenerated: state.plansGenerated,
+        notesSaved: state.notesSaved,
+        langsViewed: state.langsViewed.size,
+        streak: state.streak
+      };
+    }
+
+    /* ============================================
+       DOM UPDATES
+       ============================================ */
+    function updateXPDisplay() {
+      const level = getLevel();
+      const xpInLevel = getXPInLevel();
+      const percent = (xpInLevel / 500) * 100;
+
+      document.getElementById('totalXpDisplay').textContent = state.totalXP.toLocaleString();
+      document.getElementById('levelDisplay').textContent = `Level ${level}`;
+      document.getElementById('xpToNext').textContent = `${xpInLevel} / 500 XP`;
+      document.getElementById('xpProgressFill').style.width = `${percent}%`;
+      document.getElementById('questsDoneDisplay').textContent = state.completedQuests.size;
+      document.getElementById('streakDisplay').textContent = `🔥 ${state.streak}`;
+    }
+
+    /* ============================================
+       XP POPUP EFFECT
+       ============================================ */
+    function showXPPopup(x, y, xp) {
+      const popup = document.createElement('div');
+      popup.className = 'xp-popup';
+      popup.textContent = `+${xp} XP`;
+      popup.style.left = `${x}px`;
+      popup.style.top = `${y}px`;
+      document.body.appendChild(popup);
+      setTimeout(() => popup.remove(), 1200);
+    }
+
+    /* ============================================
+       LEVEL UP MODAL
+       ============================================ */
+    let lastLevel = getLevel();
+    function checkLevelUp() {
+      const newLevel = getLevel();
+      if (newLevel > lastLevel) {
+        const overlay = document.getElementById('levelUpOverlay');
+        document.getElementById('luTitle').textContent = `Level ${newLevel}!`;
+        document.getElementById('luSub').textContent = `You've advanced to level ${newLevel}. Keep going!`;
+        overlay.classList.add('show');
+        lastLevel = newLevel;
+      }
+    }
+    function closeLevelUp() {
+      document.getElementById('levelUpOverlay').classList.remove('show');
+    }
+
+    /* ============================================
+       QUESTS
+       ============================================ */
+    function renderQuests() {
+      const grid = document.getElementById('questsGrid');
+      grid.innerHTML = '';
+
+      const categories = ['all', ...new Set(QUESTS.map(q => q.type))];
+      const catContainer = document.getElementById('questCategories');
+      catContainer.innerHTML = '';
+      categories.forEach(cat => {
+        const chip = document.createElement('button');
+        chip.className = 'quest-cat-chip' + (state.questFilter === cat ? ' active' : '');
+        chip.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+        chip.addEventListener('click', () => { state.questFilter = cat; renderQuests(); });
+        catContainer.appendChild(chip);
+      });
+
+      const filtered = state.questFilter === 'all' ? QUESTS : QUESTS.filter(q => q.type === state.questFilter);
+
+      filtered.forEach(q => {
+        const card = document.createElement('div');
+        card.className = 'quest-card' + (state.completedQuests.has(q.id) ? ' completed' : '');
+        card.innerHTML = `
+          <div class="quest-card-header">
+            <div class="quest-icon">${q.icon}</div>
+            <div class="quest-xp-badge">+${q.xp} XP</div>
+          </div>
+          <div class="quest-card-title">${q.title}</div>
+          <div class="quest-card-desc">${q.desc}</div>
+          <div class="quest-card-footer">
+            <div class="quest-type-tag">${q.type}</div>
+            <div class="quest-check">${state.completedQuests.has(q.id) ? '✓' : ''}</div>
+          </div>
+        `;
+        card.addEventListener('click', (e) => {
+          toggleQuest(q.id, e);
+        });
+        grid.appendChild(card);
+      });
+
+      document.getElementById('questCounter').textContent = `${state.completedQuests.size} / ${QUESTS.length} completed`;
+    }
+
+    function toggleQuest(id, event) {
+      const quest = QUESTS.find(q => q.id === id);
+      if (!quest) return;
+
+      if (state.completedQuests.has(id)) {
+        state.completedQuests.delete(id);
+        state.totalXP = Math.max(0, state.totalXP - quest.xp);
+      } else {
+        state.completedQuests.add(id);
+        state.totalXP += quest.xp;
+        showXPPopup(event.clientX, event.clientY, quest.xp);
+      }
+
+      updateXPDisplay();
+      checkLevelUp();
+      renderQuests();
+      renderAchievements();
+      saveState();
+    }
+
+    /* ============================================
+       LANGUAGES
+       ============================================ */
+    function renderLanguages(filter = '') {
+      const grid = document.getElementById('langGrid');
+      grid.innerHTML = '';
+      const keys = Object.keys(LANGUAGES).filter(k => k.toLowerCase().includes(filter.toLowerCase()));
+
+      keys.forEach(lang => {
+        const data = LANGUAGES[lang];
+        const card = document.createElement('div');
+        card.className = 'lang-card' + (state.activeLanguage === lang ? ' active' : '');
+        card.style.setProperty('--lang-color', data.color);
+        card.innerHTML = `
+          <div class="lang-card-icon">${data.icon}</div>
+          <div class="lang-card-name">${lang}</div>
+          <div class="lang-card-sub">${data.tracks.length} tracks · ${data.projects.length} projects</div>
+        `;
+        card.addEventListener('click', () => {
+          state.activeLanguage = lang;
+          state.activeTrack = data.tracks[0].title;
+          state.activeProject = data.projects[0]?.title || null;
+          state.langsViewed.add(lang);
+          renderLanguages(filter);
+          renderTracksAndProjects();
+          renderAchievements();
+          saveState();
+        });
+        grid.appendChild(card);
+      });
+
+      renderTracksAndProjects();
+    }
+
+    document.getElementById('langSearch').addEventListener('input', (e) => {
+      renderLanguages(e.target.value);
+    });
+
+    function renderTracksAndProjects() {
+      const container = document.getElementById('tracksProjectsGrid');
+      const langData = LANGUAGES[state.activeLanguage];
+      if (!langData) { container.style.display = 'none'; return; }
+
+      container.style.display = 'grid';
+      document.getElementById('tracksPanelTitle').textContent = `${state.activeLanguage} Tracks`;
+
+      // Tracks
+      const tracksList = document.getElementById('tracksList');
+      tracksList.innerHTML = '';
+      langData.tracks.forEach(track => {
+        const item = document.createElement('div');
+        const diffClass = track.difficulty.toLowerCase();
+        item.className = 'track-item' + (state.activeTrack === track.title ? ' active' : '');
+        item.innerHTML = `
+          <div class="track-item-header">
+            <div class="track-item-title">${track.title}</div>
+            <span class="difficulty-badge ${diffClass}">${track.difficulty}</span>
+          </div>
+          <div class="track-item-desc">${track.description}</div>
+        `;
+        item.addEventListener('click', () => {
+          state.activeTrack = track.title;
+          renderTracksAndProjects();
+        });
+        tracksList.appendChild(item);
+      });
+
+      // Projects
+      const projectsList = document.getElementById('projectsList');
+      projectsList.innerHTML = '';
+      langData.projects.forEach(project => {
+        const item = document.createElement('div');
+        const diffClass = project.difficulty.toLowerCase();
+        item.className = 'project-item' + (state.activeProject === project.title ? ' active' : '');
+        item.innerHTML = `
+          <div class="project-item-header">
+            <div class="project-item-title">${project.title}</div>
+            <span class="difficulty-badge ${diffClass}">${project.difficulty}</span>
+          </div>
+          <div class="project-item-desc">${project.description}</div>
+          ${state.activeProject === project.title ? `
+            <div class="project-details-expanded">
+              <h4>📋 Task Breakdown</h4>
+              <ul class="project-task-list">
+                ${project.tasks.map(t => `<li>${t}</li>`).join('')}
+              </ul>
+            </div>
+          ` : ''}
+        `;
+        item.addEventListener('click', () => {
+          state.activeProject = state.activeProject === project.title ? null : project.title;
+          renderTracksAndProjects();
+        });
+        projectsList.appendChild(item);
+      });
+    }
+
+    /* ============================================
+       CODE RENDERING / PREVIEW
+       ============================================ */
+    const CODE_SAMPLES = {
+      JavaScript: {
+        file: 'app.js',
+        code: [
+          { line: 1,  tokens: [{ type: 'cm', text: '// Vantage Coding — JS Demo' }] },
+          { line: 2,  tokens: [{ type: 'kw', text: 'const' }, { text: ' ' }, { type: 'var', text: 'app' }, { text: ' ' }, { type: 'op', text: '=' }, { text: ' ' }, { type: 'fn', text: 'createApp' }, { type: 'op', text: '({' }] },
+          { line: 3,  tokens: [{ text: '  ' }, { type: 'var', text: 'name' }, { type: 'op', text: ':' }, { text: ' ' }, { type: 'str', text: "'Vantage'" }, { type: 'op', text: ',' }] },
+          { line: 4,  tokens: [{ text: '  ' }, { type: 'var', text: 'version' }, { type: 'op', text: ':' }, { text: ' ' }, { type: 'str', text: "'2.0'" }, { type: 'op', text: ',' }] },
+          { line: 5,  tokens: [{ type: 'op', text: '});' }] },
+          { line: 6,  tokens: [{ text: '' }] },
+          { line: 7,  tokens: [{ type: 'kw', text: 'async function' }, { text: ' ' }, { type: 'fn', text: 'fetchData' }, { type: 'op', text: '(' }, { type: 'var', text: 'url' }, { type: 'op', text: ') {' }] },
+          { line: 8,  tokens: [{ text: '  ' }, { type: 'kw', text: 'const' }, { text: ' ' }, { type: 'var', text: 'res' }, { text: ' ' }, { type: 'op', text: '=' }, { text: ' ' }, { type: 'kw', text: 'await' }, { text: ' ' }, { type: 'fn', text: 'fetch' }, { type: 'op', text: '(' }, { type: 'var', text: 'url' }, { type: 'op', text: ');' }] },
+          { line: 9,  tokens: [{ text: '  ' }, { type: 'kw', text: 'return' }, { text: ' ' }, { type: 'var', text: 'res' }, { type: 'op', text: '.' }, { type: 'fn', text: 'json' }, { type: 'op', text: '();' }] },
+          { line: 10, tokens: [{ type: 'op', text: '}' }] },
+          { line: 11, tokens: [{ text: '' }] },
+          { line: 12, tokens: [{ type: 'var', text: 'app' }, { type: 'op', text: '.' }, { type: 'fn', text: 'mount' }, { type: 'op', text: '(' }, { type: 'str', text: "'#root'" }, { type: 'op', text: ');' }] },
+        ],
+        preview: 'profile'
+      },
+      Python: {
+        file: 'main.py',
+        code: [
+          { line: 1,  tokens: [{ type: 'cm', text: '# Vantage Coding — Python Demo' }] },
+          { line: 2,  tokens: [{ type: 'kw', text: 'from' }, { text: ' ' }, { type: 'var', text: 'flask' }, { text: ' ' }, { type: 'kw', text: 'import' }, { text: ' ' }, { type: 'type', text: 'Flask' }] },
+          { line: 3,  tokens: [{ text: '' }] },
+          { line: 4,  tokens: [{ type: 'var', text: 'app' }, { text: ' ' }, { type: 'op', text: '=' }, { text: ' ' }, { type: 'type', text: 'Flask' }, { type: 'op', text: '(' }, { type: 'var', text: '__name__' }, { type: 'op', text: ')' }] },
+          { line: 5,  tokens: [{ text: '' }] },
+          { line: 6,  tokens: [{ type: 'kw', text: '@app.route' }, { type: 'op', text: '(' }, { type: 'str', text: "'/api'" }, { type: 'op', text: ')' }] },
+          { line: 7,  tokens: [{ type: 'kw', text: 'def' }, { text: ' ' }, { type: 'fn', text: 'api' }, { type: 'op', text: '():' }] },
+          { line: 8,  tokens: [{ text: '    ' }, { type: 'kw', text: 'return' }, { text: ' ' }, { type: 'op', text: '{' }, { type: 'str', text: "'status'" }, { type: 'op', text: ':' }, { text: ' ' }, { type: 'str', text: "'ok'" }, { type: 'op', text: '}' }] },
+          { line: 9,  tokens: [{ text: '' }] },
+          { line: 10, tokens: [{ type: 'kw', text: 'if' }, { text: ' ' }, { type: 'var', text: '__name__' }, { text: ' ' }, { type: 'op', text: '==' }, { text: ' ' }, { type: 'str', text: "'__main__'" }, { type: 'op', text: ':' }] },
+          { line: 11, tokens: [{ text: '    ' }, { type: 'var', text: 'app' }, { type: 'op', text: '.' }, { type: 'fn', text: 'run' }, { type: 'op', text: '(' }, { type: 'var', text: 'debug' }, { type: 'op', text: '=' }, { type: 'type', text: 'True' }, { type: 'op', text: ')' }] },
+        ],
+        preview: 'api'
+      }
+    };
+
+    function getDefaultSample() {
+      return CODE_SAMPLES[state.activeLanguage] || CODE_SAMPLES.JavaScript;
+    }
+
+    function renderCodePreview() {
+      const sample = getDefaultSample();
+      document.getElementById('codeEditorFileName').textContent = sample.file;
+
+      const body = document.getElementById('codeEditorBody');
+      body.innerHTML = '';
+      sample.code.forEach(line => {
+        const lineEl = document.createElement('div');
+        lineEl.className = 'line';
+        let html = `<span class="line-num">${line.line}</span><span class="line-code">`;
+        line.tokens.forEach(tok => {
+          if (tok.type) {
+            html += `<span class="${tok.type}">${escapeHTML(tok.text)}</span>`;
+          } else {
+            html += escapeHTML(tok.text);
+          }
+        });
+        html += '</span>';
+        lineEl.innerHTML = html;
+        body.appendChild(lineEl);
+      });
+
+      // Render preview
+      const previewBody = document.getElementById('renderPreviewBody');
+      if (sample.preview === 'api') {
+        previewBody.innerHTML = `
+          <div class="render-card">
+            <div class="render-avatar">🐍</div>
+            <div class="render-name">Flask API</div>
+            <div class="render-bio">Running on localhost:5000</div>
+            <div style="background:var(--bg-secondary);border-radius:var(--radius-sm);padding:12px;font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-align:left;color:var(--text-secondary);">
+              <div style="color:var(--success);">GET /api → 200 OK</div>
+              <div style="margin-top:6px;color:var(--text-muted);">{"status": "ok"}</div>
+            </div>
+          </div>
+        `;
+      } else {
+        previewBody.innerHTML = `
+          <div class="render-card">
+            <div class="render-avatar">🚀</div>
+            <div class="render-name">${state.activeLanguage} App</div>
+            <div class="render-bio">Vantage Coding Project</div>
+            <div class="render-stats">
+              <div class="render-stat">
+                <div class="render-stat-val">${LANGUAGES[state.activeLanguage]?.tracks.length || 0}</div>
+                <div class="render-stat-label">Tracks</div>
+              </div>
+              <div class="render-stat">
+                <div class="render-stat-val">${LANGUAGES[state.activeLanguage]?.projects.length || 0}</div>
+                <div class="render-stat-label">Projects</div>
+              </div>
+              <div class="render-stat">
+                <div class="render-stat-val">v2.0</div>
+                <div class="render-stat-label">Version</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    /* ============================================
+       ACHIEVEMENTS
+       ============================================ */
+    function renderAchievements() {
+      const grid = document.getElementById('achievementsGrid');
+      grid.innerHTML = '';
+      const stats = getStats();
+
+      ACHIEVEMENTS.forEach(ach => {
+        const unlocked = ach.condition(stats);
+        const card = document.createElement('div');
+        card.className = 'achievement-card ' + (unlocked ? 'unlocked' : 'locked');
+        card.innerHTML = `
+          <div class="achievement-icon">${ach.icon}</div>
+          <div class="achievement-name">${ach.name}</div>
+          <div class="achievement-desc">${ach.desc}</div>
+          <div class="achievement-status">${unlocked ? '✓ Unlocked' : '🔒 Locked'}</div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    /* ============================================
+       LEADERBOARD
+       ============================================ */
+    function renderLeaderboard() {
+      const list = document.getElementById('leaderboardList');
+      list.innerHTML = '';
+
+      const level = getLevel();
+      const allEntries = [...LEADERBOARD, { name: 'You', level: level, xp: state.totalXP, avatar: '🎮', you: true }];
+      allEntries.sort((a, b) => b.xp - a.xp);
+
+      allEntries.forEach((entry, i) => {
+        const rank = i + 1;
+        const div = document.createElement('div');
+        div.className = 'lb-entry' + (entry.you ? ' you' : '');
+        const rankClass = rank === 1 ? 'gold' : rank === 2 ? 'silver' : rank === 3 ? 'bronze' : '';
+        div.innerHTML = `
+          <div class="lb-rank ${rankClass}">#${rank}</div>
+          <div class="lb-avatar">${entry.avatar}</div>
+          <div class="lb-info">
+            <div class="lb-name">${entry.name}${entry.you ? ' (You)' : ''}</div>
+            <div class="lb-level">Level ${entry.level}</div>
+          </div>
+          <div class="lb-xp">${entry.xp.toLocaleString()} XP</div>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    /* ============================================
+       COACH
+       ============================================ */
+    document.getElementById('coachBtn').addEventListener('click', () => {
+      const idea = document.getElementById('coachInput').value.trim();
+      if (!idea) return;
+
+      state.plansGenerated++;
+      saveState();
+
+      const techs = [];
+      const ideaLower = idea.toLowerCase();
+      if (ideaLower.includes('web') || ideaLower.includes('site') || ideaLower.includes('app')) techs.push('React/Next.js', 'Node.js', 'PostgreSQL');
+      else if (ideaLower.includes('mobile') || ideaLower.includes('ios') || ideaLower.includes('android')) techs.push('React Native', 'Expo', 'Firebase');
+      else if (ideaLower.includes('api') || ideaLower.includes('server') || ideaLower.includes('backend')) techs.push('Express.js', 'MongoDB', 'Docker');
+      else if (ideaLower.includes('game')) techs.push('Unity', 'C#', 'WebGL');
+      else if (ideaLower.includes('ml') || ideaLower.includes('ai') || ideaLower.includes('data')) techs.push('Python', 'TensorFlow', 'Pandas');
+      else techs.push(state.activeLanguage, 'Git', 'VS Code');
+
+      const steps = [
+        'Define project scope and create a requirements document',
+        `Set up development environment with ${techs.join(', ')}`,
+        'Design the architecture and data models',
+        'Build the core functionality (MVP)',
+        'Write unit tests and integration tests',
+        'Polish UI/UX and add error handling',
+        'Deploy and gather feedback'
+      ];
+
+      const output = document.getElementById('coachOutput');
+      const card = document.createElement('div');
+      card.className = 'coach-plan-card';
+      card.innerHTML = `
+        <div class="plan-title">💡 ${idea}</div>
+        <div class="plan-steps">
+          ${steps.map((s, i) => `
+            <div class="step">
+              <span class="step-number">${i + 1}</span>
+              <span>${s}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      output.prepend(card);
+      document.getElementById('coachInput').value = '';
+      renderAchievements();
+    });
+
+    /* ============================================
+       NOTES
+       ============================================ */
+    document.getElementById('saveNotesBtn').addEventListener('click', () => {
+      const note = document.getElementById('notesArea').value.trim();
+      if (!note) return;
+      state.notesSaved++;
+      state.savedNotes.push({ text: note, date: new Date().toISOString() });
+      saveState();
+      document.getElementById('savedNotesCount').textContent = `📝 ${state.notesSaved} notes saved`;
+      document.getElementById('notesArea').value = '';
+      renderAchievements();
+    });
+
+    // Restore notes count
+    if (state.notesSaved > 0) {
+      document.getElementById('savedNotesCount').textContent = `📝 ${state.notesSaved} notes saved`;
+    }
+
+    /* ============================================
+       SECTION TAB SWITCHING
+       ============================================ */
+    document.querySelectorAll('.section-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const section = tab.dataset.section;
+        document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(`section-${section}`).classList.add('active');
+
+        // Lazy render
+        if (section === 'rendering') renderCodePreview();
+        if (section === 'leaderboard') renderLeaderboard();
+        if (section === 'achievements') renderAchievements();
+      });
+    });
+
+    /* ============================================
+       INITIAL RENDER
+       ============================================ */
+    renderQuests();
+    renderLanguages();
+    updateXPDisplay();
+    renderAchievements();
+    lastLevel = getLevel();
+
+    /* ============================================
+       INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
+       ============================================ */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.quest-card, .lang-card, .achievement-card').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
